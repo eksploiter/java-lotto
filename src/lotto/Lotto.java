@@ -1,3 +1,4 @@
+// Lotto.java
 package lotto;
 
 import java.util.ArrayList;
@@ -5,24 +6,31 @@ import java.util.Collections;
 import java.util.List;
 
 public class Lotto {
-    public static void main(String[] args) {
-        // 1부터 45까지의 숫자를 리스트에 추가
-        List<Integer> numbers = new ArrayList<>();
+    private List<Integer> numbers; // 추출된 6개의 번호
+
+    // 생성자: 객체 생성 시 자동으로 번호를 추출
+    public Lotto() {
+        selectNumber();
+    }
+
+    // 번호를 추출하는 메서드
+    private void selectNumber() {
+        List<Integer> pool = new ArrayList<>();
         for (int i = 1; i <= 45; i++) {
-            numbers.add(i);
+            pool.add(i);
         }
+        Collections.shuffle(pool); // 리스트를 섞음
+        numbers = new ArrayList<>(pool.subList(0, 6)); // 처음 6개 번호 추출
+        Collections.sort(numbers); // 번호 정렬
+    }
 
-        // 리스트를 섞는다 (랜덤으로 섞음)
-        Collections.shuffle(numbers);
+    // 추출된 번호를 출력하는 메서드
+    public void printNumber() {
+        System.out.println("로또 번호: " + numbers);
+    }
 
-        // 섞인 리스트에서 처음 6개를 선택
-        List<Integer> lottoNumbers = numbers.subList(0, 6);
-
-        // 선택된 로또 번호를 정렬 (선택사항)
-        Collections.sort(lottoNumbers);
-
-        // 결과 출력
-        System.out.println("로또 번호: " + lottoNumbers);
+    // 번호를 반환하는 메서드 (필요 시 사용)
+    public List<Integer> getNumbers() {
+        return numbers;
     }
 }
-
